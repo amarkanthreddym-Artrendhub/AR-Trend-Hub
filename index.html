@@ -1,77 +1,15 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AR TREND HUB — Credit Cards</title>
-<link rel="stylesheet" href="style.css">
-</head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AR TREND HUB | Credit Cards</title><link rel="stylesheet" href="style.css"></head>
 <body>
-<header class="topbar">
-  <div class="brand">AR TREND HUB</div>
-  <nav><a href="#cards">Credit Cards</a><a href="#compare">Compare</a><a href="#calculator">Calculator</a><a href="#admin">Admin</a></nav>
-</header>
+<header><b>AR TREND HUB</b><nav><a href="#cards">Cards</a><a href="#compare">Compare 3</a><a href="#calculator">Calculator</a><a href="#admin">Admin</a></nav></header>
+<section class="hero"><small>CREDIT CARD GUIDE</small><h1>Credit cards, explained without confusion.</h1><p>Rewards, fees, transaction conditions, smart tips, card-specific terms and comparisons.</p><a class="btn dark" href="#cards">Explore Cards</a></section>
 <main>
-<section class="hero">
-  <p class="eyebrow">CREDIT CARD GUIDE</p>
-  <h1>Find the right credit card without confusion.</h1>
-  <p>Rewards, fees, transaction rules, calculators, comparisons and card-specific terms — with a Draft → Verify → Publish workflow.</p>
-  <div class="hero-actions"><a class="btn primary" href="#cards">Explore Cards</a><a class="btn" href="#calculator">Calculate Rewards</a></div>
-</section>
-
-<section id="cards" class="section">
-  <div class="section-head"><div><p class="eyebrow">CARD DATABASE</p><h2>Featured cards</h2></div><input id="search" placeholder="Search card or bank"></div>
-  <div id="cardGrid" class="grid"></div>
-</section>
-
-<section id="compare" class="section panel">
-  <p class="eyebrow">COMPARE 3</p><h2>Compare selected cards</h2>
-  <p class="muted">Select up to 3 cards above. This demo compares the master data structure.</p>
-  <div id="compareTable"></div>
-</section>
-
-<section id="calculator" class="section panel">
-  <p class="eyebrow">REWARD CALCULATOR</p><h2>Spend calculator</h2>
-  <div class="calc">
-    <label>Card<select id="calcCard"></select></label>
-    <label>Eligible 5% merchant spend (₹)<input id="spend5" type="number" value="10000" min="0"></label>
-    <label>Eligible 1% other spend (₹)<input id="spend1" type="number" value="10000" min="0"></label>
-    <button class="btn primary" onclick="calculate()">Calculate</button>
-  </div>
-  <div id="calcResult" class="result"></div>
-</section>
-
-<section class="section">
-  <div class="info-grid">
-    <div class="info-card"><h3>✨ Highlights</h3><p>Show the most important benefits, fees, caps and warnings first.</p></div>
-    <div class="info-card"><h3>💡 Smart Usage Tips</h3><p>Practical card-specific tips based on verified terms.</p></div>
-    <div class="info-card"><h3>📜 Card Terms</h3><p>Only the terms applicable to that individual card, with official source and verification date.</p></div>
-    <div class="info-card"><h3>🔔 Updates</h3><p>Changes stay in Draft until you verify and publish them.</p></div>
-  </div>
-</section>
-
-<section id="admin" class="section panel">
-  <p class="eyebrow">ADMIN</p><h2>Verification & publishing</h2>
-  <div class="workflow"><span>🟡 Draft</span><span>→</span><span>🔍 Verify</span><span>→</span><span>👁 Preview</span><span>→</span><span>🟢 Publish</span></div>
-  <div class="admin-card">
-    <h3>HDFC Millennia Credit Card</h3>
-    <div class="checks">
-      <div>Official source <b>🟢</b></div><div>Fees & charges <b>🟡</b></div><div>Rewards <b>🟢</b></div>
-      <div>Transaction conditions <b>🟡</b></div><div>Affiliate link <b>🟡</b></div><div>Last verified <b>28-Aug-2026</b></div>
-    </div>
-    <div class="hero-actions"><button class="btn">Edit</button><button class="btn">Preview</button><button class="btn primary">Publish</button></div>
-    <p class="muted">Publishing controls are shown here as a prototype. A real multi-user admin/database requires a backend and authentication.</p>
-  </div>
-</section>
-
-<section class="section disclaimer">
-<h3>⚠️ Tax & AIS Awareness</h3>
-<p><b>General awareness only — not tax, legal or financial advice.</b> Certain high-value transactions may be reportable under applicable rules and may appear in the applicable tax-information statement. A reported transaction does not automatically mean it is taxable income. Verify current rules with the Income Tax Department or a qualified professional.</p>
-<h3>Affiliate disclosure</h3>
-<p>AR TREND HUB may earn a commission from eligible applications made through certain links. Affiliate relationships do not determine factual card information or comparison methodology.</p>
-</section>
-</main>
-<footer>© AR TREND HUB • Information should be verified against the issuer's latest official terms before applying.</footer>
-<script src="app.js"></script>
-</body>
-</html>
+<section id="cards"><div class="heading"><div><small>CARD DATABASE</small><h2>Credit Cards</h2></div><input id="search" placeholder="Search card or bank"></div><div id="grid" class="grid"></div></section>
+<section id="detail" class="detail"><div id="detailContent"></div></section>
+<section id="compare" class="box"><small>COMPARE 3</small><h2>Compare selected cards</h2><div id="compareTable"></div></section>
+<section id="calculator" class="box"><small>REWARD CALCULATOR</small><h2>Estimate rewards</h2><div class="form"><label>Card<select id="calcCard"></select></label><label>Eligible 5% spend ₹<input id="s5" type="number" value="10000"></label><label>Eligible 1% spend ₹<input id="s1" type="number" value="10000"></label><button class="btn dark" onclick="calculate()">Calculate</button></div><div id="result"></div></section>
+<section id="admin" class="box"><small>ADMIN WORKFLOW</small><h2>Draft → Verify → Preview → Publish</h2><div class="workflow">🟡 Draft → 🔍 Official source → 🔗 Affiliate link → 👁 Preview → 🟢 Publish</div><p>Production version will connect this workflow to a secure database, login, audit history and update checks.</p></section>
+<section class="notice"><h3>⚠️ Tax & AIS awareness</h3><p>General awareness only—not tax, legal or financial advice. Check current rules with the Income Tax Department or a qualified professional.</p><h3>Affiliate disclosure</h3><p>AR TREND HUB may earn a commission from eligible applications through certain links. Affiliate relationships do not determine factual card information or comparison methodology.</p></section>
+</main><footer>AR TREND HUB • Check the issuer's latest official terms before applying.</footer>
+<script src="app.js"></script></body></html>

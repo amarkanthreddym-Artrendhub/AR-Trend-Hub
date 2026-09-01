@@ -1,30 +1,32 @@
 const cards=[
-{id:"hdfc-millennia",bank:"HDFC Bank",name:"HDFC Millennia",type:"Cashback",status:"Draft",highlights:["5% on specified eligible merchants","1% on eligible other spends","₹1,000 cycle cap for 5% category","₹1,000 cycle cap for 1% category"],best:"Online shopping",fee:1000,rate5:.05,rate1:.01},
-{id:"sbi-cashback",bank:"SBI Card",name:"SBI Cashback",type:"Cashback",status:"Research",highlights:["Cashback-focused card","Card-specific exclusions and caps"],best:"Online spending",fee:null,rate5:0,rate1:0},
-{id:"amazon-pay-icici",bank:"ICICI Bank",name:"Amazon Pay ICICI",type:"Co-brand",status:"Research",highlights:["Amazon co-brand","Reward rules vary by transaction/category"],best:"Amazon ecosystem",fee:null,rate5:0,rate1:0}
-];
-const selected=new Set(["hdfc-millennia"]);
-function render(){
- const q=(document.getElementById("search").value||"").toLowerCase();
- const grid=document.getElementById("cardGrid"); grid.innerHTML="";
- cards.filter(c=>(c.name+" "+c.bank+" "+c.type).toLowerCase().includes(q)).forEach(c=>{
-  const el=document.createElement("article");el.className="card";
-  el.innerHTML=`<span class="tag">${c.type}</span> <span class="tag">${c.status}</span><h3>${c.name}</h3><p class="muted">${c.bank} • Best for ${c.best}</p><ul>${c.highlights.map(x=>`<li>${x}</li>`).join("")}</ul><button class="btn ${selected.has(c.id)?"primary":""}" onclick="toggle('${c.id}')">${selected.has(c.id)?"✓ Selected":"Select for Compare"}</button>`;
-  grid.appendChild(el);
- });
- const sel=cards.filter(c=>selected.has(c.id)).slice(0,3);
- document.getElementById("compareTable").innerHTML=sel.length?`<table style="width:100%;border-collapse:collapse"><tr><th style="text-align:left;padding:10px">Feature</th>${sel.map(c=>`<th style="padding:10px">${c.name}</th>`).join("")}</tr>
- <tr><td style="padding:10px">Type</td>${sel.map(c=>`<td style="padding:10px">${c.type}</td>`).join("")}</tr>
- <tr><td style="padding:10px">Best for</td>${sel.map(c=>`<td style="padding:10px">${c.best}</td>`).join("")}</tr>
- <tr><td style="padding:10px">Annual fee</td>${sel.map(c=>`<td style="padding:10px">${c.fee==null?"Verify": "₹"+c.fee+" + applicable taxes"}</td>`).join("")}</tr></table>`:"<p class='muted'>Select cards above.</p>";
- const select=document.getElementById("calcCard");select.innerHTML=cards.map(c=>`<option value="${c.id}">${c.name}</option>`).join("");
-}
-function toggle(id){if(selected.has(id)){selected.delete(id)}else if(selected.size<3){selected.add(id)}else{alert("Compare up to 3 cards.")}render()}
-function calculate(){
- const c=cards.find(x=>x.id===document.getElementById("calcCard").value);
- const s5=Math.max(0,Number(document.getElementById("spend5").value)||0);
- const s1=Math.max(0,Number(document.getElementById("spend1").value)||0);
- const r5=Math.min(s5*c.rate5,1000),r1=Math.min(s1*c.rate1,1000),total=r5+r1;
- document.getElementById("calcResult").innerHTML=`<b>${c.name}</b><br>Estimated cashback: <b>₹${total.toFixed(2)}</b><br><span class="muted">This is a demonstration calculation. Final live calculations must use the card's verified current terms, exclusions, caps and applicable taxes/fees.</span>`;
-}
-document.getElementById("search").addEventListener("input",render);render();calculate();
+{id:"millennia",bank:"HDFC Bank",name:"HDFC Millennia Credit Card",type:"Cashback",status:"DRAFT",best:"Eligible online shopping",fee:"₹1,000 + applicable taxes",rate5:.05,rate1:.01,
+high:["5% cashback on specified eligible merchants","1% on eligible other spends","1,000 CashPoints per cycle for each cashback category","Quarterly milestone benefit subject to current official terms"],
+tips:["Use eligible 5% merchants when you already need the purchase.","Track the 1,000 CashPoint cycle cap.","Check the payment route for education transactions.","Pay the full statement balance on time."],
+avoid:["Don't spend unnecessarily just to earn rewards.","Don't assume every online purchase gets 5%.","Don't rely on old lounge-benefit information.","Check current issuer terms before large transactions."],
+rules:[
+["🎓 Education","Third-party education apps do not earn Reward Points. Direct school/college website or POS payments can earn, subject to applicable MCC and terms."],
+["🛡️ Insurance","Display the current card-specific insurance reward/charge rule after verification; do not automatically copy a generic HDFC rule."],
+["👛 Wallet","Wallet loading under the specified wallet MCC does not earn Reward Points. Applicable fees must be checked against the current charge schedule."],
+["🏠 Rent","Rent is excluded from the 1% other-spend cashback category."],
+["⛽ Fuel","Fuel is excluded from the 1% other-spend cashback category; applicable fuel charges/surcharge depend on current issuer rules."],
+["💡 Utility","Show the current applicable utility charge/reward threshold from the latest issuer schedule before publishing."],
+["🏛️ Government","Government-related transactions are excluded from the 1% other-spend cashback category."],
+["💳 EMI","EMI transactions do not earn Reward Points under the Millennia terms."],
+["📱 UPI","Show only the current applicable UPI rule after verification; do not assume UPI transactions all earn cashback."],
+["🌍 International","Show current forex/foreign-currency charges and reward treatment from the latest official schedule."],
+["✈️ Lounge","Complimentary domestic airport lounge access was discontinued effective 1-Dec-2023."],
+["🔄 Redemption","CashPoints can be redeemed as cashback against the outstanding Millennia card amount, subject to current redemption rules."],
+["📅 Posting","Eligible calendar-month transactions are posted in the first week of the following month, subject to the terms."]
+],
+source:"HDFC Bank Millennia Terms & Conditions — published 25 Apr 2025",
+sourceUrl:"https://www.hdfcbank.com/content/bbp/repositories/723fb80a-2dde-42a3-9793-7ae1be57c87f/?path=%2FPersonal%2FPay%2FCards%2FMillennia+Cards%2FCashBack+Credit+Card%2FTerms-and-Conditions-Millennia-Credit-Card.pdf"},
+{id:"sbi",bank:"SBI Card",name:"SBI Cashback Card",type:"Cashback",status:"RESEARCH",best:"Online spending",fee:"Verify current official terms",rate5:0,rate1:0,high:["Card-specific rewards, caps and exclusions to be verified"],tips:["Check current exclusions before using the card."],avoid:["Don't rely on third-party summaries for final terms."],rules:[["Status","Research record — not final/publishable data."]],source:"SBI Card official site — pending card audit",sourceUrl:"https://www.sbicard.com/"},
+{id:"amazon",bank:"ICICI Bank",name:"Amazon Pay ICICI Credit Card",type:"Co-brand",status:"RESEARCH",best:"Amazon ecosystem",fee:"Verify current official terms",rate5:0,rate1:0,high:["Co-branded card"],tips:["Check current reward categories and exclusions."],avoid:["Don't assume old rewards remain unchanged."],rules:[["Status","Research record — not final/publishable data."]],source:"ICICI Bank official site — pending card audit",sourceUrl:"https://www.icicibank.com/"}];
+
+let selected=new Set(["millennia"]);
+function render(){const q=(search.value||"").toLowerCase();grid.innerHTML=cards.filter(c=>(c.name+" "+c.bank+" "+c.type).toLowerCase().includes(q)).map(c=>`<article class="card"><span class="tag">${c.type}</span> <span class="tag">${c.status}</span><h3>${c.name}</h3><p class="muted">${c.bank} • Best for ${c.best}</p><ul>${c.high.map(x=>`<li>${x}</li>`).join("")}</ul><button class="btn ${selected.has(c.id)?"dark":""}" onclick="toggle('${c.id}')">${selected.has(c.id)?"✓ Selected":"Select for Compare"}</button><button class="btn" onclick="showCard('${c.id}')">Full Details</button></article>`).join("");calcCard.innerHTML=cards.map(c=>`<option value="${c.id}">${c.name}</option>`).join("");compare();}
+function toggle(id){if(selected.has(id))selected.delete(id);else if(selected.size<3)selected.add(id);else return alert("Compare maximum 3 cards.");render();}
+function showCard(id){const c=cards.find(x=>x.id===id);detailContent.innerHTML=`<small>${c.bank} • ${c.type} • ${c.status}</small><h2>${c.name}</h2><div class="detail-grid"><div class="mini"><b>Annual fee</b>${c.fee}</div><div class="mini"><b>Best for</b>${c.best}</div><div class="mini"><b>Publish status</b>${c.status==="DRAFT"?"🟡 Draft — verify before publish":"🟡 Research — not final"}</div><div class="mini"><b>Affiliate</b>Separate card-specific EarnKaro/approved-partner link field. Add only after campaign verification.</div></div><h3>✨ Highlights</h3><ul>${c.high.map(x=>`<li>${x}</li>`).join("")}</ul><h3>💡 Smart Usage Tips</h3><ul>${c.tips.map(x=>`<li>${x}</li>`).join("")}</ul><h3>⚠️ Don't Do This</h3><ul>${c.avoid.map(x=>`<li>${x}</li>`).join("")}</ul><h3>📜 Card-specific Terms & Conditions</h3>${c.rules.map(t=>`<div class="mini warn"><b>${t[0]}</b>${t[1]}</div>`).join("")}<p class="muted"><b>Official source:</b> ${c.source}<br><a href="${c.sourceUrl}" target="_blank" rel="noopener">View official source</a></p><p class="muted">AR TREND HUB verification date: to be recorded after admin verification. Issuer terms take precedence.</p>`;location.hash="detail";}
+function compare(){const s=cards.filter(c=>selected.has(c.id)).slice(0,3);compareTable.innerHTML=s.length?`<table style="width:100%;border-collapse:collapse"><tr><th style="text-align:left;padding:9px">Feature</th>${s.map(c=>`<th style="padding:9px">${c.name}</th>`).join("")}</tr><tr><td style="padding:9px">Type</td>${s.map(c=>`<td style="padding:9px">${c.type}</td>`).join("")}</tr><tr><td style="padding:9px">Best for</td>${s.map(c=>`<td style="padding:9px">${c.best}</td>`).join("")}</tr><tr><td style="padding:9px">Annual fee</td>${s.map(c=>`<td style="padding:9px">${c.fee}</td>`).join("")}</tr></table>`:"Select up to 3 cards.";}
+function calculate(){const c=cards.find(x=>x.id===calcCard.value),a=Math.max(0,+s5.value||0),b=Math.max(0,+s1.value||0),r5=Math.min(a*c.rate5,1000),r1=Math.min(b*c.rate1,1000);result.innerHTML=`<div class="mini good"><b>Estimated cashback: ₹${(r5+r1).toFixed(2)}</b><br>5% component: ₹${r5.toFixed(2)}<br>1% component: ₹${r1.toFixed(2)}<br><small>Demo only. Production calculator will use verified current caps, exclusions, fees and taxes.</small></div>`}
+search.addEventListener("input",render);render();showCard("millennia");calculate();
